@@ -19,17 +19,31 @@ resource "ibm_is_vpc" "vpc1" {
   name = "vpc-${random_id.name1.hex}"
 }
 
+resource "ibm_is_public_gateway" "subnet1_gateway" {
+    name = "${vpc1.name}-subnet-${random_id.name1.hex}-pgw"
+    vpc = ibm_is_vpc.vpc1.id
+    zone = local.ZONE1
+}
+
+resource "ibm_is_public_gateway" "subnet2_gateway" {
+    name = "${vpc1.name}-subnet-${random_id.name2.hex}-pgw"
+    vpc = ibm_is_vpc.vpc1.id
+    zone = local.ZONE2
+}
+
 resource "ibm_is_subnet" "subnet1" {
-  name                     = "subnet-${random_id.name1.hex}"
+  name                     = "${vpc1.name}-subnet-${random_id.name1.hex}"
   vpc                      = ibm_is_vpc.vpc1.id
   zone                     = local.ZONE1
+  public_gateway           = ibm_is_public_gateway.subnet1_gateway.id
   total_ipv4_address_count = 256
 }
 
 resource "ibm_is_subnet" "subnet2" {
-  name                     = "subnet-${random_id.name2.hex}"
+  name                     = "${vpc1.name}-subnet-${random_id.name2.hex}"
   vpc                      = ibm_is_vpc.vpc1.id
   zone                     = local.ZONE2
+  public_gateway           = ibm_is_public_gateway.subnet2_gateway.id
   total_ipv4_address_count = 256
 }
 
@@ -38,7 +52,7 @@ data "ibm_resource_group" "resource_group" {
 }
 
 resource "ibm_container_vpc_cluster" "cluster" {
-  name              = "${var.cluster_name}${random_id.name1.hex}"
+  name              = "${var.cluster_name}"
   vpc_id            = ibm_is_vpc.vpc1.id
   kube_version      = var.kube_version
   flavor            = var.flavor
@@ -53,7 +67,7 @@ resource "ibm_container_vpc_cluster" "cluster" {
 
 resource "ibm_container_vpc_worker_pool" "cluster_pool" {
   cluster           = ibm_container_vpc_cluster.cluster.id
-  worker_pool_name  = "${var.worker_pool_name}${random_id.name1.hex}"
+  worker_pool_name  = "${var.worker_pool_name}-${random_id.name1.hex}"
   flavor            = var.flavor
   vpc_id            = ibm_is_vpc.vpc1.id
   worker_count      = var.worker_count
