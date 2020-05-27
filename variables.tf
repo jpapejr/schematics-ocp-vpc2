@@ -25,16 +25,3 @@ variable "cluster_name" {
 variable "worker_pool_name" {
   default = "workerpool"
 }
-
-variable "service_instance_name" {
-  default = "myservice"
-}
-
-variable "service_offering" {
-  default = "speech_to_text"
-}
-
-variable "plan" {
-  default = "lite"
-}
-
