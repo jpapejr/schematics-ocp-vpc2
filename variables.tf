@@ -15,11 +15,7 @@ variable "region" {
 }
 
 variable "resource_group" {
-  default = "Default"
-}
-
-variable "cluster_name" {
-  default = "cluster"
+  default = "default"
 }
 
 variable "worker_pool_name" {
