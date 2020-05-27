@@ -15,6 +15,7 @@ resource "random_pet" "cluster_name" {}
 locals {
   ZONE1 = "${var.region}-1"
   ZONE2 = "${var.region}-2"
+  ZONE3 = "${var.region}-3"
 }
 
 resource "ibm_is_vpc_address_prefix" "vpc1_address_prefix-zone1" {
@@ -29,6 +30,13 @@ resource "ibm_is_vpc_address_prefix" "vpc1_address_prefix-zone2" {
   zone   = local.ZONE2
   vpc         = ibm_is_vpc.vpc1.id
   cidr        = "${var.zone2_prefix}/18"
+}
+
+resource "ibm_is_vpc_address_prefix" "vpc1_address_prefix-zone3" {
+  name = "prefix3"
+  zone   = local.ZONE3
+  vpc         = ibm_is_vpc.vpc1.id
+  cidr        = "${var.zone3_prefix}/18"
 }
 
 
