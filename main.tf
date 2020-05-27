@@ -83,17 +83,5 @@ resource "ibm_container_vpc_cluster" "cluster" {
   }
 }
 
-resource "ibm_container_vpc_worker_pool" "cluster_pool" {
-  cluster           = ibm_container_vpc_cluster.cluster.id
-  worker_pool_name  = "default"
-  flavor            = var.flavor
-  vpc_id            = ibm_is_vpc.vpc1.id
-  worker_count      = var.worker_count
-  resource_group_id = data.ibm_resource_group.resource_group.id
-  zones {
-    name      = local.ZONE2
-    subnet_id = ibm_is_subnet.subnet2.id
-  }
-}
 
 
