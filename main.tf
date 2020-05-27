@@ -18,14 +18,14 @@ locals {
 }
 
 resource "ibm_is_vpc_address_prefix" "vpc1_address_prefix-zone1" {
-  name = "test"
+  name = "prefix1"
   zone   = local.ZONE1
   vpc         = ibm_is_vpc.vpc1.id
   cidr        = "${var.zone1_prefix}/18"
 }
 
 resource "ibm_is_vpc_address_prefix" "vpc1_address_prefix-zone2" {
-  name = "test"
+  name = "prefix2"
   zone   = local.ZONE2
   vpc         = ibm_is_vpc.vpc1.id
   cidr        = "${var.zone2_prefix}/18"
@@ -33,7 +33,7 @@ resource "ibm_is_vpc_address_prefix" "vpc1_address_prefix-zone2" {
 
 
 resource "ibm_is_vpc" "vpc1" {
-  name                      = "vpc-${random_id.name1.hex}"
+  name                      = "vpc-${random_pet.cluster_name.id}"
   address_prefix_management = "manual"
 }
 
