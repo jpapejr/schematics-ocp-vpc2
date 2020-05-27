@@ -73,7 +73,7 @@ resource "ibm_container_vpc_worker_pool" "cluster_pool" {
   }
 }
 
-resource "ibm_container_vpc_worker_pool" "cluster_pool" {
+resource "ibm_container_vpc_worker_pool" "cluster_pool2" {
   cluster           = ibm_container_vpc_cluster.cluster.id
   worker_pool_name  = var.worker_pool_name
   flavor            = var.flavor
