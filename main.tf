@@ -28,7 +28,7 @@ resource "ibm_is_public_gateway" "subnet1_gateway" {
 }
 
 resource "ibm_is_public_gateway" "subnet2_gateway" {
-    name = "${vpc1.name}-subnet-${random_id.name2.hex}-pgw"
+    name = "${ibm_is_vpc.vpc1.name}-subnet-${random_id.name2.hex}-pgw"
     vpc = ibm_is_vpc.vpc1.id
     zone = local.ZONE2
 }
