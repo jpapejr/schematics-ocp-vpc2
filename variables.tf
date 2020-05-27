@@ -21,3 +21,11 @@ variable "resource_group" {
 variable "worker_pool_name" {
   default = "workerpool"
 }
+
+variable "zone1_prefix" {
+  default = "10.240.0.0"
+}
+
+variable "zone2_prefix" {
+  default = "10.240.64.0"
+}
