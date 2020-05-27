@@ -29,3 +29,7 @@ variable "zone1_prefix" {
 variable "zone2_prefix" {
   default = "10.240.64.0"
 }
+
+variable "zone3_prefix" {
+  default = "10.240.128.0"
+}
