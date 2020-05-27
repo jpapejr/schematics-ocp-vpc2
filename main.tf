@@ -10,6 +10,8 @@ resource "random_id" "name2" {
   byte_length = 2
 }
 
+resource "random_pet" "cluster_name" {}
+
 locals {
   ZONE1 = "${var.region}-1"
   ZONE2 = "${var.region}-2"
@@ -52,7 +54,7 @@ data "ibm_resource_group" "resource_group" {
 }
 
 resource "ibm_container_vpc_cluster" "cluster" {
-  name              = "${var.cluster_name}"
+  name              = random_pet.cluster_name.id
   vpc_id            = ibm_is_vpc.vpc1.id
   kube_version      = var.kube_version
   flavor            = var.flavor
