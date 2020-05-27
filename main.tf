@@ -44,7 +44,7 @@ resource "ibm_is_security_group" "vpc1_security_group" {
 resource "ibm_is_security_group_rule" "vpc_security_group_1" {
     group = ibm_is_security_group.vpc1_security_group.id
     direction = "inbound"
-    remote = ibm_is_security_group.vpc1.id
+    remote = ibm_is_security_group.vpc1_security_group.id
 }
 
 resource "ibm_is_security_group_rule" "vpc_security_group_2" {
