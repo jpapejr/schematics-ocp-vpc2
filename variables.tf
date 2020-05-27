@@ -1,14 +1,9 @@
 variable "flavor" {
-  default = "bx2.4x16"
+  default = "bx2.2x8"
 }
 
-variable "vpc" {}
-variable "subnet1" {}
-variable "subnet2" {}
-variable "subnet3" {}
-
 variable "kube_version" {
-  default = "4.3.19_openshift"
+  default = "1.17.5"
 }
 
 variable "worker_count" {
@@ -20,7 +15,7 @@ variable "region" {
 }
 
 variable "resource_group" {
-  default = "default"
+  default = "Default"
 }
 
 variable "cluster_name" {
@@ -28,5 +23,18 @@ variable "cluster_name" {
 }
 
 variable "worker_pool_name" {
-  default = "default"
+  default = "workerpool"
 }
+
+variable "service_instance_name" {
+  default = "myservice"
+}
+
+variable "service_offering" {
+  default = "speech_to_text"
+}
+
+variable "plan" {
+  default = "lite"
+}
+
