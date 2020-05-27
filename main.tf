@@ -17,6 +17,21 @@ locals {
   ZONE2 = "${var.region}-2"
 }
 
+resource "ibm_is_vpc_address_prefix" "vpc1_address_prefix-zone1" {
+  name = "test"
+  zone   = local.ZONE1
+  vpc         = ibm_is_vpc.vpc1.id
+  cidr        = "${var.zone1_prefix}/18"
+}
+
+resource "ibm_is_vpc_address_prefix" "vpc1_address_prefix-zone2" {
+  name = "test"
+  zone   = local.ZONE2
+  vpc         = ibm_is_vpc.vpc1.id
+  cidr        = "${var.zone2_prefix}/18"
+}
+
+
 resource "ibm_is_vpc" "vpc1" {
   name = "vpc-${random_id.name1.hex}"
 }
@@ -38,7 +53,7 @@ resource "ibm_is_subnet" "subnet1" {
   vpc                      = ibm_is_vpc.vpc1.id
   zone                     = local.ZONE1
   public_gateway           = ibm_is_public_gateway.subnet1_gateway.id
-  total_ipv4_address_count = 256
+  ipv4_cidr_block          = "${var.zone1_prefix}/24"
 }
 
 resource "ibm_is_subnet" "subnet2" {
@@ -46,7 +61,7 @@ resource "ibm_is_subnet" "subnet2" {
   vpc                      = ibm_is_vpc.vpc1.id
   zone                     = local.ZONE2
   public_gateway           = ibm_is_public_gateway.subnet2_gateway.id
-  total_ipv4_address_count = 256
+  ipv4_cidr_block          = "${var.zone2_prefix}/24"
 }
 
 data "ibm_resource_group" "resource_group" {
