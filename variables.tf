@@ -20,7 +20,7 @@ variable "region" {
 }
 
 variable "resource_group" {
-  default = "Default"
+  default = "default"
 }
 
 variable "cluster_name" {
