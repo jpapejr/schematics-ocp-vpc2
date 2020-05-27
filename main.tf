@@ -36,6 +36,33 @@ resource "ibm_is_vpc" "vpc1" {
   name = "vpc-${random_id.name1.hex}"
 }
 
+resource "ibm_is_security_group" "vpc1_security_group" {
+    name = "default"
+    vpc = ibm_is_vpc.vpc1.id
+}
+
+resource "ibm_is_security_group_rule" "vpc_security_group_1" {
+    group = ibm_is_security_group.vpc1_security_group.id
+    direction = "inbound"
+    remote = ibm_is_security_group.vpc1.id
+}
+
+resource "ibm_is_security_group_rule" "vpc_security_group_2" {
+    group = ibm_is_security_group.vpc1_security_group.id
+    direction = "outbound"
+    remote = "0.0.0.0"
+}
+
+resource "ibm_is_security_group_rule" "vpc_security_group_3" {
+    group = ibm_is_security_group.vpc1_security_group.id
+    direction = "inbound"
+    remote = "0.0.0.0"
+    tcp {
+        port_min = 30000
+        port_max = 32767
+    }
+}
+
 resource "ibm_is_public_gateway" "subnet1_gateway" {
     name = "${ibm_is_vpc.vpc1.name}-subnet-${random_id.name1.hex}-pgw"
     vpc = ibm_is_vpc.vpc1.id
